@@ -1,3 +1,4 @@
+import { ToggleTheme } from '@/components/toggle-theme';
 import { Button } from '@/components/ui/button';
 import { SignOutButton, UserButton } from '@clerk/nextjs';
 import { auth } from '@clerk/nextjs/server';
@@ -16,8 +17,8 @@ export default function Home() {
       <SignOutButton>
         <Button>Sign Out</Button>
       </SignOutButton>
+      <ToggleTheme />
       <p>This is a protected route</p>
-      <Button variant={'destructive'}>Get out of here</Button>
     </div>
   );
 }
