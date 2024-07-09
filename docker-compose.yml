@@ -1,0 +1,17 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres
+    container_name: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: passw0rd
+      POSTGRES_USER: rakib
+    ports:
+      - 5432:5432
+    volumes:
+      - discord:/var/lib/postgresql/data
+
+volumes:
+  discord:
