@@ -7,7 +7,7 @@ import InviteMemberModal from '../modals/invite-member-modal';
 
 export default function ModalProvider() {
   const [isMounted, setIsMounted] = useState(false);
-  const { type } = useModal();
+  const { modalTypeAndData } = useModal();
 
   useEffect(() => {
     setIsMounted(true);
@@ -17,7 +17,7 @@ export default function ModalProvider() {
     return null;
   }
 
-  switch (type) {
+  switch (modalTypeAndData.type) {
     case 'createServer':
       return <CreateServerModal />;
     case 'inviteMember':

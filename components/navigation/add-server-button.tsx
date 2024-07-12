@@ -8,7 +8,7 @@ export default function AddServerButton() {
   const { onOpen } = useModal();
 
   const handleOpen = () => {
-    onOpen('createServer');
+    onOpen({ type: 'createServer' });
   };
 
   return (

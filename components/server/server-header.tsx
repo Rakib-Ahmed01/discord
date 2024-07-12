@@ -31,6 +31,17 @@ export default function ServerHeader({ server, userRole }: Props) {
   const isAdmin = userRole === 'ADMIN';
   const isModerator = isAdmin || userRole === 'MODERATOR';
 
+  const onInvite = () =>
+    onOpen({
+      type: 'inviteMember',
+      data: {
+        server: {
+          id: server.id,
+          inviteCode: server.inviteCode,
+        },
+      },
+    });
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -43,11 +54,7 @@ export default function ServerHeader({ server, userRole }: Props) {
         {isModerator && (
           <DropdownMenuItem
             className="text-indigo-600 dark:text-indigo-500 px-3 py-2 cursor-pointer text-sm"
-            onClick={() =>
-              onOpen('inviteMember', {
-                server: { id: server.id, inviteCode: server.inviteCode },
-              })
-            }
+            onClick={onInvite}
           >
             Invite Member
             <UserPlus className="w-4 h-4 ml-auto" />

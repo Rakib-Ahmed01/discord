@@ -30,7 +30,7 @@ import {
 import { Input } from '../ui/input';
 
 export default function CreateServerModal() {
-  const { isOpen, onClose, type } = useModal();
+  const { isOpen, onClose, modalTypeAndData } = useModal();
   const router = useRouter();
   const form = useForm({
     defaultValues: {
@@ -41,7 +41,7 @@ export default function CreateServerModal() {
   });
 
   const isLoading = form.formState.isSubmitting;
-  const isModalOpen = isOpen && type === 'createServer';
+  const isModalOpen = isOpen && modalTypeAndData.type === 'createServer';
 
   const onSubmit = async (values: CreateServerType) => {
     await axios.post('/api/servers', values);

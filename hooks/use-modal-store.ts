@@ -1,28 +1,30 @@
 import { create } from 'zustand';
 
-export type ModalType = 'createServer' | 'inviteMember' | null;
+// export type ModalType = 'createServer' | 'inviteMember' | 'editServer' | null;
 
-// export type ModalData = { type: 'createServer' } | { type: 'inviteMember', data: { server: Server } }
-
-export type ModalData = {
-  server?: {
-    id: string;
-    inviteCode: string;
-  };
-};
+export type ModalmodalTypeAndData =
+  | { type: 'createServer' }
+  | {
+      type: 'inviteMember';
+      data: {
+        server: {
+          id: string;
+          inviteCode: string;
+        };
+      };
+    }
+  | { type: null };
 
 type ModalState = {
-  type: ModalType;
-  data: ModalData;
+  modalTypeAndData: ModalmodalTypeAndData;
   isOpen: boolean;
-  onOpen: (type: ModalType, data: ModalData) => void;
+  onOpen: (modalmodalTypeAndData: ModalmodalTypeAndData) => void;
   onClose: () => void;
 };
 
 export const useModal = create<ModalState>((set) => ({
-  type: null,
   isOpen: false,
-  data: {},
-  onOpen: (type, data) => set({ type, isOpen: true, data }),
-  onClose: () => set({ type: null, isOpen: false }),
+  modalTypeAndData: { type: null },
+  onOpen: (modalTypeAndData) => set({ isOpen: true, modalTypeAndData }),
+  onClose: () => set({ isOpen: false, modalTypeAndData: { type: null } }),
 }));

@@ -19,11 +19,17 @@ import { Label } from '../ui/label';
 export default function InviteMemberModal() {
   const [isCopied, setIsCopied] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const { isOpen, onClose, type, data, onOpen } = useModal();
+  const { isOpen, onClose, modalTypeAndData, onOpen } = useModal();
   const origin = useOrigin();
 
-  const isModalOpen = isOpen && type === 'inviteMember';
-  const inviteCode = `${origin}/invite/${data?.server?.inviteCode}`;
+  const isModalOpen = isOpen && modalTypeAndData.type === 'inviteMember';
+  let inviteCode = '';
+  let serverId = '';
+
+  if (modalTypeAndData.type === 'inviteMember') {
+    inviteCode = `${origin}/invite/${modalTypeAndData.data.server.inviteCode}`;
+    serverId = modalTypeAndData.data.server.id;
+  }
 
   const onCopy = () => {
     navigator.clipboard.writeText(inviteCode);
@@ -38,13 +44,16 @@ export default function InviteMemberModal() {
     try {
       setIsLoading(true);
       const response = await axios.patch(
-        `/api/servers/${data?.server?.id}/invite-code`
+        `/api/servers/${serverId}/invite-code`
       );
 
-      onOpen('inviteMember', {
-        server: {
-          id: data?.server?.id as string,
-          inviteCode: response.data as string,
+      onOpen({
+        type: 'inviteMember',
+        data: {
+          server: {
+            id: serverId,
+            inviteCode: response.data,
+          },
         },
       });
     } catch (error) {
