@@ -15,13 +15,13 @@ export async function POST(req: Request) {
     const body = await req.json();
     const { name, imageUrl } = createServerSchema.parse(body);
 
-    const newServer = await db.server.create({
+    await db.server.create({
       data: {
         name,
         imageUrl,
         inviteCode: randomUUID(),
         profileId: profile.id,
-        memebers: {
+        members: {
           create: {
             role: 'ADMIN',
             profileId: profile.id,

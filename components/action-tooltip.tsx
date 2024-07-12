@@ -18,7 +18,7 @@ export default function ActionTooltip({ children, align, side, label }: Props) {
       <Tooltip>
         <TooltipTrigger asChild>{children}</TooltipTrigger>
         <TooltipContent
-          className="text-md font-medium"
+          className="text-md font-medium z-50"
           align={align}
           side={side}
         >

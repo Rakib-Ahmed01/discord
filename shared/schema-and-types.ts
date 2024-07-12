@@ -10,13 +10,3 @@ export const createServerSchema = z.object({
 });
 
 export type CreateServerType = z.infer<typeof createServerSchema>;
-
-export type Server = {
-  id: string;
-  name: string;
-  imageUrl: string;
-  inviteCode: string;
-  profileId: string;
-  createdAt: Date;
-  updatedAt: Date;
-};

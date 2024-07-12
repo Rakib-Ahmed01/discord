@@ -1,8 +1,8 @@
 'use client';
 
 import { Plus } from 'lucide-react';
+import { useModal } from '../../hooks/use-modal-store';
 import ActionTooltip from '../action-tooltip';
-import { useModal } from '../modals/use-modal-store';
 
 export default function AddServerButton() {
   const { onOpen } = useModal();

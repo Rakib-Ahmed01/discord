@@ -17,20 +17,24 @@ export default async function NavigationSidebar() {
 
   const servers = await db.server.findMany({
     where: {
-      profileId: profile.id,
+      members: {
+        some: {
+          profileId: profile.id,
+        },
+      },
     },
   });
 
   return (
     <div
       id="sidebar"
-      className=" dark:bg-darkish h-full w-full flex flex-col items-center space-y-4 text-primary"
+      className=" dark:bg-darkish h-full w-full flex flex-col items-center space-y-4 text-primary py-3"
     >
       <AddServerButton />
       <Separator className="h-[2px] w-10 rounded-full bg-zinc-300 dark:bg-zinc-700 mx-auto" />
       <SidebarServerList servers={servers} />
       <div
-        className="flex flex-col gap-4 items-center pb-3"
+        className="flex flex-col gap-4 items-center"
         style={{ marginTop: 'auto' }}
       >
         <ToggleTheme />

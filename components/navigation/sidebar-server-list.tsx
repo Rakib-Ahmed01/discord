@@ -1,7 +1,7 @@
 'use client';
 
 import { cn } from '@/lib/utils';
-import { Server } from '@/shared/schema-and-types';
+import { Server } from '@prisma/client';
 import { ScrollArea } from '@radix-ui/react-scroll-area';
 import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
