@@ -3,6 +3,7 @@
 import {
   Dialog,
   DialogContent,
+  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -12,9 +13,10 @@ import {
   CreateServerType,
 } from '@/shared/schema-and-types';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { DialogDescription } from '@radix-ui/react-dialog';
+import { Server } from '@prisma/client';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 import { useForm } from 'react-hook-form';
 import { useModal } from '../../hooks/use-modal-store';
 import FileUpload from '../file-upload';
@@ -29,7 +31,7 @@ import {
 } from '../ui/form';
 import { Input } from '../ui/input';
 
-export default function CreateServerModal() {
+export default function EditServerModal() {
   const { isOpen, onClose, modalTypeAndData } = useModal();
   const router = useRouter();
   const form = useForm({
@@ -41,12 +43,22 @@ export default function CreateServerModal() {
   });
 
   const isLoading = form.formState.isSubmitting;
-  const isModalOpen = isOpen && modalTypeAndData.type === 'createServer';
+  const isModalOpen = isOpen && modalTypeAndData.type === 'editServer';
+  let server = {} as Server;
+
+  if (modalTypeAndData.type === 'editServer') {
+    server = modalTypeAndData.data.server;
+  }
+
+  useEffect(() => {
+    form.setValue('name', server.name);
+    form.setValue('imageUrl', server.imageUrl);
+  }, [form, server.name, server.imageUrl]);
 
   const onSubmit = async (values: CreateServerType) => {
-    await axios.post('/api/servers', values);
-    form.reset();
-    onClose();
+    await axios.patch(`/api/servers/${server.id}`, values);
+    handleClose();
+    router.push(`/servers/${server.id}`);
     router.refresh();
   };
 
@@ -60,11 +72,12 @@ export default function CreateServerModal() {
       <DialogContent className="overflow-hidden bg-white text-black p-5">
         <DialogHeader>
           <DialogTitle className="text-2xl text-center font-bold">
-            Create Server
+            Edit Server
           </DialogTitle>
-          <DialogDescription className="text-zinc-500 text-center">
-            Create your server with name and image. You can always change it
-            later.
+          <DialogDescription className="text-center">
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Quasi
+            doloremque doloribus dolor delectus nemo, earum officia repellendus
+            tempora corrupti rerum.
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -116,7 +129,7 @@ export default function CreateServerModal() {
             </div>
             <DialogFooter>
               <Button type="submit" variant="primary" disabled={isLoading}>
-                Create
+                Update
               </Button>
             </DialogFooter>
           </form>

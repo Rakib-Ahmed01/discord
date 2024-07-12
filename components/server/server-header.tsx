@@ -61,7 +61,12 @@ export default function ServerHeader({ server, userRole }: Props) {
           </DropdownMenuItem>
         )}
         {isAdmin && (
-          <DropdownMenuItem className="px-3 py-2 cursor-pointer">
+          <DropdownMenuItem
+            className="px-3 py-2 cursor-pointer"
+            onClick={() => {
+              onOpen({ type: 'editServer', data: { server } });
+            }}
+          >
             Server Settings
             <Settings className="w-4 h-4 ml-auto" />
           </DropdownMenuItem>

@@ -1,8 +1,8 @@
+import { Server } from '@prisma/client';
 import { create } from 'zustand';
 
-// export type ModalType = 'createServer' | 'inviteMember' | 'editServer' | null;
-
 export type ModalmodalTypeAndData =
+  | { type: null }
   | { type: 'createServer' }
   | {
       type: 'inviteMember';
@@ -13,7 +13,7 @@ export type ModalmodalTypeAndData =
         };
       };
     }
-  | { type: null };
+  | { type: 'editServer'; data: { server: Server } };
 
 type ModalState = {
   modalTypeAndData: ModalmodalTypeAndData;
