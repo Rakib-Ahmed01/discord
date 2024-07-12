@@ -3,5 +3,5 @@ type Props = {
 };
 
 export default function ServerPage({ params }: Props) {
-  return <div>ServerPage</div>;
+  return <div>ServerPage {params.serverId}</div>;
 }
