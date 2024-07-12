@@ -27,8 +27,10 @@ import {
   FormMessage,
 } from '../ui/form';
 import { Input } from '../ui/input';
+import { useModal } from './use-modal-store';
 
-export default function SetupModal() {
+export default function CreateServerModal() {
+  const { isOpen, onClose, type } = useModal();
   const router = useRouter();
   const form = useForm({
     defaultValues: {
@@ -39,15 +41,22 @@ export default function SetupModal() {
   });
 
   const isLoading = form.formState.isSubmitting;
+  const isModalOpen = isOpen && type === 'createServer';
 
   const onSubmit = async (values: CreateServerType) => {
     await axios.post('/api/servers', values);
     form.reset();
+    onClose();
     router.refresh();
   };
 
+  const handleClose = () => {
+    form.reset();
+    onClose();
+  };
+
   return (
-    <Dialog open>
+    <Dialog open={isModalOpen} onOpenChange={handleClose}>
       <DialogContent className="overflow-hidden bg-white text-black p-5">
         <DialogHeader>
           <DialogTitle className="text-2xl text-center font-bold">
@@ -90,7 +99,11 @@ export default function SetupModal() {
                     </FormLabel>
                     <FormControl>
                       <Input
-                        className="bg-zinc-300/50 border-0 focus-visible:ring-1 focus-visible:ring-offset-1 focus-visible:ring-indigo-600/90"
+                        className="bg-zinc-300/50 border-0
+                        focus-visible:outline-none
+                        focus-visible:border-0
+                        focus-visible:ring-0
+                        ring-offset-white"
                         disabled={isLoading}
                         placeholder="Enter server name"
                         {...field}

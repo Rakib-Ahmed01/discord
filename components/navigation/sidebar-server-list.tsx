@@ -16,7 +16,7 @@ export default function SidebarServerList({ servers }: Props) {
   const router = useRouter();
 
   return (
-    <ScrollArea className="w-full">
+    <ScrollArea className="w-full flex flex-col space-y-4">
       {servers.map((server) => {
         const { name, id, imageUrl } = server;
         return (
@@ -35,8 +35,7 @@ export default function SidebarServerList({ servers }: Props) {
               <div
                 className={cn(
                   'relative w-12 h-12 rounded-[24px] group-hover:rounded-[16px] transition-all overflow-hidden mx-3',
-                  params?.serverId === id &&
-                    'bg-primary/10 text-primary rounded-[16px]'
+                  params?.serverId === id && 'rounded-[16px]'
                 )}
               >
                 <Image fill alt={name} src={imageUrl} />

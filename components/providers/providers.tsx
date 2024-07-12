@@ -1,3 +1,4 @@
+import ModalProvider from './modal-provider';
 import { ThemeProvider } from './theme-provider';
 
 export default function Providers({ children }: { children: React.ReactNode }) {
@@ -9,6 +10,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       disableTransitionOnChange
       storageKey="discord-theme"
     >
+      <ModalProvider />
       {children}
     </ThemeProvider>
   );

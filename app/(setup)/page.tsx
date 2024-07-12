@@ -1,4 +1,4 @@
-import SetupModal from '@/components/modals/setup-modal';
+import CreateServerModal from '@/components/modals/create-server-modal';
 import { db } from '@/lib/db';
 import initialProfile from '@/lib/initial-profile';
 import { redirect } from 'next/navigation';
@@ -22,7 +22,7 @@ export default async function SetupPage() {
 
   return (
     <div>
-      <SetupModal />
+      <CreateServerModal />
     </div>
   );
 }
