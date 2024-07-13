@@ -1,7 +1,8 @@
 import { auth, currentUser } from '@clerk/nextjs/server';
+import { cache } from 'react';
 import { db } from './db';
 
-export default async function initialProfile() {
+const getOrCreateProfile = cache(async () => {
   const user = await currentUser();
 
   if (!user) {
@@ -26,4 +27,6 @@ export default async function initialProfile() {
       email: user.emailAddresses[0].emailAddress,
     },
   });
-}
+});
+
+export default getOrCreateProfile;

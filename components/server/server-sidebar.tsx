@@ -1,5 +1,5 @@
 import currentProfile from '@/lib/current-profile';
-import { db } from '@/lib/db';
+import { getServerWithChannelsAndMembersWithProfile } from '@/lib/utils';
 import { auth } from '@clerk/nextjs/server';
 import _ from 'lodash';
 import { redirect } from 'next/navigation';
@@ -16,31 +16,10 @@ export default async function ServerSidebar({ serverId }: Props) {
     return auth().redirectToSignIn();
   }
 
-  const server = await db.server.findUnique({
-    where: {
-      id: serverId,
-      members: {
-        some: {
-          profileId: profile.id,
-        },
-      },
-    },
-    include: {
-      channels: {
-        orderBy: {
-          createdAt: 'asc',
-        },
-      },
-      members: {
-        include: {
-          profile: true,
-        },
-        orderBy: {
-          role: 'asc',
-        },
-      },
-    },
-  });
+  const server = await getServerWithChannelsAndMembersWithProfile(
+    serverId,
+    profile.id
+  );
 
   if (!server) {
     return redirect('/');

@@ -1,5 +1,6 @@
 import currentProfile from '@/lib/current-profile';
 import { db } from '@/lib/db';
+import { getServerByInviteCodeAndProfileId } from '@/lib/utils';
 import { redirect } from 'next/navigation';
 
 type Props = {
@@ -15,16 +16,10 @@ export default async function InviteCode({ params: { inviteCode } }: Props) {
     return redirect('/');
   }
 
-  const userAlreadyInServer = await db.server.findFirst({
-    where: {
-      inviteCode,
-      members: {
-        some: {
-          profileId: profile.id,
-        },
-      },
-    },
-  });
+  const userAlreadyInServer = await getServerByInviteCodeAndProfileId(
+    inviteCode,
+    profile.id
+  );
 
   if (userAlreadyInServer) {
     return redirect(`/servers/${userAlreadyInServer.id}`);

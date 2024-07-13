@@ -1,7 +1,7 @@
 import currentProfile from '@/lib/current-profile';
-import { db } from '@/lib/db';
 import { redirect } from 'next/navigation';
 
+import { getServersByProfileId } from '@/lib/utils';
 import { UserButton } from '@clerk/nextjs';
 import { ToggleTheme } from '../toggle-theme';
 import { Separator } from '../ui/separator';
@@ -15,18 +15,7 @@ export default async function NavigationSidebar() {
     redirect('/');
   }
 
-  const servers = await db.server.findMany({
-    where: {
-      members: {
-        some: {
-          profileId: profile.id,
-        },
-      },
-    },
-    orderBy: {
-      createdAt: 'asc',
-    },
-  });
+  const servers = await getServersByProfileId(profile.id);
 
   return (
     <div

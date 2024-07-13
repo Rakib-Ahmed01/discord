@@ -1,7 +1,8 @@
 import { auth } from '@clerk/nextjs/server';
+import { cache } from 'react';
 import { db } from './db';
 
-export default async function currentProfile() {
+const currentProfile = cache(async () => {
   const { userId } = auth();
 
   if (!userId) {
@@ -13,4 +14,6 @@ export default async function currentProfile() {
       userId,
     },
   });
-}
+});
+
+export default currentProfile;

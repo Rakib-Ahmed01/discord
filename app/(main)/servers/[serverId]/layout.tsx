@@ -1,6 +1,6 @@
 import ServerSidebar from '@/components/server/server-sidebar';
 import currentProfile from '@/lib/current-profile';
-import { db } from '@/lib/db';
+import { getServerByIdAndProfileId } from '@/lib/utils';
 import { auth } from '@clerk/nextjs/server';
 import { redirect } from 'next/navigation';
 
@@ -17,16 +17,7 @@ export default async function ServerPageLayout({
     return auth().redirectToSignIn();
   }
 
-  const server = await db.server.findUnique({
-    where: {
-      id: serverId,
-      members: {
-        some: {
-          profileId: profile.id,
-        },
-      },
-    },
-  });
+  const server = await getServerByIdAndProfileId(serverId, profile.id);
 
   if (!server) {
     return redirect('/');

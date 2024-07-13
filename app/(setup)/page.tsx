@@ -1,23 +1,15 @@
 import CreateServerModal from '@/components/modals/create-server-modal';
-import { db } from '@/lib/db';
-import initialProfile from '@/lib/initial-profile';
+import getOrCreateProfile from '@/lib/initial-profile';
+import { getServersByProfileId } from '@/lib/utils';
 import { redirect } from 'next/navigation';
 
 export default async function SetupPage() {
-  const profile = await initialProfile();
+  const profile = await getOrCreateProfile();
 
-  const server = await db.server.findFirst({
-    where: {
-      members: {
-        some: {
-          profileId: profile.id,
-        },
-      },
-    },
-  });
+  const servers = await getServersByProfileId(profile.id);
 
-  if (server) {
-    redirect(`/servers/${server.id}`);
+  if (servers && servers.length > 0) {
+    redirect(`/servers/${servers[0].id}`);
   }
 
   return (
