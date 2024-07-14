@@ -13,7 +13,15 @@ export async function POST(req: Request) {
     }
 
     const body = await req.json();
-    const { name, imageUrl } = createServerSchema.parse(body);
+    const result = createServerSchema.safeParse(body);
+
+    if (!result.success) {
+      return new NextResponse('Server name and image is required', {
+        status: 400,
+      });
+    }
+
+    const { imageUrl, name } = result.data;
 
     await db.server.create({
       data: {

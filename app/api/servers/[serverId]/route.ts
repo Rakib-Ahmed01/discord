@@ -15,7 +15,15 @@ export async function PATCH(
     }
 
     const body = await req.json();
-    const { name, imageUrl } = createServerSchema.parse(body);
+    const result = createServerSchema.safeParse(body);
+
+    if (!result.success) {
+      return new NextResponse('Server name or image is required', {
+        status: 400,
+      });
+    }
+
+    const { name, imageUrl } = result.data;
 
     const server = await db.server.update({
       where: {
@@ -24,7 +32,7 @@ export async function PATCH(
           some: {
             profileId: profile.id,
             role: {
-              in: ['ADMIN', 'MODERATOR'],
+              in: ['ADMIN'],
             },
           },
         },
@@ -37,7 +45,7 @@ export async function PATCH(
 
     return NextResponse.json(server, { status: 200 });
   } catch (error) {
-    console.log('[SERVERS_POST]', error);
+    console.log('[SERVERS_ID_PATCH]', error);
     return new NextResponse('Internal server error', { status: 500 });
   }
 }

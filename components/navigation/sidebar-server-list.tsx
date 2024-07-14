@@ -20,28 +20,30 @@ export default function SidebarServerList({ servers }: Props) {
       {servers.map((server) => {
         const { name, id, imageUrl } = server;
         return (
-          <ActionTooltip label={name} align="center" side="right" key={id}>
-            <button
-              className="group relative flex items-center"
-              onClick={() => router.push(`/servers/${id}`)}
-            >
-              <div
-                className={cn(
-                  'absolute left-0 bg-primary rounded-r-full transition-all w-1',
-                  params?.serverId !== id && 'group-hover:h-5',
-                  params?.serverId === id ? 'h-9' : 'h-2'
-                )}
-              />
-              <div
-                className={cn(
-                  'relative w-12 h-12 rounded-[24px] group-hover:rounded-[16px] transition-all overflow-hidden mx-3',
-                  params?.serverId === id && 'rounded-[16px]'
-                )}
+          <div key={id} className="z-50">
+            <ActionTooltip label={name} align="center" side="right">
+              <button
+                className="group relative flex items-center"
+                onClick={() => router.push(`/servers/${id}`)}
               >
-                <Image fill alt={name} src={imageUrl} />
-              </div>
-            </button>
-          </ActionTooltip>
+                <div
+                  className={cn(
+                    'absolute left-0 bg-primary rounded-r-full transition-all w-1',
+                    params?.serverId !== id && 'group-hover:h-5',
+                    params?.serverId === id ? 'h-9' : 'h-2'
+                  )}
+                />
+                <div
+                  className={cn(
+                    'relative w-12 h-12 rounded-[24px] group-hover:rounded-[16px] transition-all overflow-hidden mx-3',
+                    params?.serverId === id && 'rounded-[16px]'
+                  )}
+                >
+                  <Image fill alt={name} src={imageUrl} />
+                </div>
+              </button>
+            </ActionTooltip>
+          </div>
         );
       })}
     </ScrollArea>

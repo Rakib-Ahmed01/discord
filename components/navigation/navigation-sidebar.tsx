@@ -20,7 +20,7 @@ export default async function NavigationSidebar() {
   return (
     <div
       id="sidebar"
-      className=" dark:bg-darkish h-full w-full flex flex-col items-center space-y-4 text-primary py-3"
+      className=" dark:bg-darkish h-full w-full flex flex-col items-center space-y-4 text-primary py-3 isolate"
     >
       <AddServerButton />
       <Separator className="h-[2px] w-10 rounded-full bg-zinc-300 dark:bg-zinc-700 mx-auto" />

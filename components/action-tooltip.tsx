@@ -1,3 +1,4 @@
+import { TooltipPortal } from '@radix-ui/react-tooltip';
 import {
   Tooltip,
   TooltipContent,
@@ -17,13 +18,15 @@ export default function ActionTooltip({ children, align, side, label }: Props) {
     <TooltipProvider>
       <Tooltip>
         <TooltipTrigger asChild>{children}</TooltipTrigger>
-        <TooltipContent
-          className="text-md font-medium z-50"
-          align={align}
-          side={side}
-        >
-          {label}
-        </TooltipContent>
+        <TooltipPortal>
+          <TooltipContent
+            className="text-md font-medium z-50"
+            align={align}
+            side={side}
+          >
+            {label}
+          </TooltipContent>
+        </TooltipPortal>
       </Tooltip>
     </TooltipProvider>
   );

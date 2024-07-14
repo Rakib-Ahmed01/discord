@@ -72,7 +72,10 @@ export default function ServerHeader({ server, userRole }: Props) {
           </DropdownMenuItem>
         )}
         {isAdmin && (
-          <DropdownMenuItem className="px-3 py-2 cursor-pointer">
+          <DropdownMenuItem
+            onClick={() => onOpen({ type: 'manageMembers', data: { server } })}
+            className="px-3 py-2 cursor-pointer"
+          >
             Manage Members
             <Users className="w-4 h-4 ml-auto" />
           </DropdownMenuItem>

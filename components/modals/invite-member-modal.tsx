@@ -68,7 +68,7 @@ export default function InviteMemberModal() {
       <DialogContent className="overflow-hidden bg-white text-black p-5">
         <DialogHeader>
           <DialogTitle className="text-2xl text-center font-bold text-balance">
-            Invite Member
+            Invite Members
           </DialogTitle>
         </DialogHeader>
         <div className="p-6 flex flex-col space-y-[10px] items-start">

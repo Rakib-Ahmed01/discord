@@ -38,7 +38,7 @@ export default async function ServerSidebar({ serverId }: Props) {
   )?.role!;
 
   return (
-    <div className="flex flex-col h-full w-full text-primary bg-[#F2F3F5] dark:bg-[#2b2D31]">
+    <div className="flex flex-col h-full w-full text-primary bg-[#F2F3F5] dark:bg-[#2b2D31] isolate">
       <ServerHeader server={server} userRole={currentUserRole} />
     </div>
   );

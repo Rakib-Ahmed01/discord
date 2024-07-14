@@ -1,3 +1,4 @@
+import { ServerWithChannelsAndMembersWithProfiles } from '@/types';
 import { Server } from '@prisma/client';
 import { create } from 'zustand';
 
@@ -13,7 +14,11 @@ export type ModalmodalTypeAndData =
         };
       };
     }
-  | { type: 'editServer'; data: { server: Server } };
+  | { type: 'editServer'; data: { server: Server } }
+  | {
+      type: 'manageMembers';
+      data: { server: ServerWithChannelsAndMembersWithProfiles };
+    };
 
 type ModalState = {
   modalTypeAndData: ModalmodalTypeAndData;

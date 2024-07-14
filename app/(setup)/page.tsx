@@ -14,7 +14,7 @@ export default async function SetupPage() {
 
   return (
     <div>
-      <CreateServerModal />
+      <CreateServerModal type="initial" />
     </div>
   );
 }
