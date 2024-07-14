@@ -23,7 +23,8 @@ export type ModalmodalTypeAndData =
       type: 'createChannel';
       data: { server: ServerWithChannelsAndMembersWithProfiles };
     }
-  | { type: 'leaveServer'; data: { server: Server } };
+  | { type: 'leaveServer'; data: { server: Server } }
+  | { type: 'deleteServer'; data: { server: Server } };
 
 type ModalState = {
   modalTypeAndData: ModalmodalTypeAndData;

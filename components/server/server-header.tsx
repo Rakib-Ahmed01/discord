@@ -105,7 +105,10 @@ export default function ServerHeader({ server, userRole }: Props) {
           </DropdownMenuItem>
         )}
         {isAdmin && (
-          <DropdownMenuItem className="text-rose-600 dark:text-rose-500 px-3 py-2 cursor-pointer">
+          <DropdownMenuItem
+            className="text-rose-600 dark:text-rose-500 px-3 py-2 cursor-pointer"
+            onClick={() => onOpen({ type: 'deleteServer', data: { server } })}
+          >
             Delete Server
             <Trash className="w-4 h-4 ml-auto" />
           </DropdownMenuItem>

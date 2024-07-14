@@ -4,6 +4,7 @@ import { useEffect, useState } from 'react';
 import { useModal } from '../../hooks/use-modal-store';
 import CreateChannelModal from '../modals/create-channel-modal';
 import CreateServerModal from '../modals/create-server-modal';
+import DeleteServerModal from '../modals/delete-server-modal';
 import EditServerModal from '../modals/edit-server-modal';
 import InviteMemberModal from '../modals/invite-member-modal';
 import LeaveServerModal from '../modals/leave-server-modal';
@@ -34,6 +35,8 @@ export default function ModalProvider() {
       return <CreateChannelModal />;
     case 'leaveServer':
       return <LeaveServerModal />;
+    case 'deleteServer':
+      return <DeleteServerModal />;
     default:
       return null;
   }
