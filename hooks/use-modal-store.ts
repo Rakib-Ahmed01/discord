@@ -18,6 +18,10 @@ export type ModalmodalTypeAndData =
   | {
       type: 'manageMembers';
       data: { server: ServerWithChannelsAndMembersWithProfiles };
+    }
+  | {
+      type: 'createChannel';
+      data: { server: ServerWithChannelsAndMembersWithProfiles };
     };
 
 type ModalState = {

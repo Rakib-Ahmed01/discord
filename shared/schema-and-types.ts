@@ -10,3 +10,23 @@ export const createServerSchema = z.object({
 });
 
 export type CreateServerType = z.infer<typeof createServerSchema>;
+
+export const channelType = ['TEXT', 'AUDIO', 'VIDEO'] as const;
+
+export const createChannelSchema = z.object({
+  name: z
+    .string()
+    .min(1, {
+      message: 'Channel name is required',
+    })
+    .refine((name) => name.toLowerCase() !== 'general', {
+      message: `General channel already exists`,
+    }),
+  type: z
+    .enum(channelType, {
+      invalid_type_error: `Channel type must be ${channelType.join(', ')}`,
+    })
+    .default('TEXT'),
+});
+
+export type CreateChannelType = z.infer<typeof createChannelSchema>;

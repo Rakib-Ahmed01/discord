@@ -81,7 +81,10 @@ export default function ServerHeader({ server, userRole }: Props) {
           </DropdownMenuItem>
         )}
         {isModerator && (
-          <DropdownMenuItem className="px-3 py-2 cursor-pointer">
+          <DropdownMenuItem
+            className="px-3 py-2 cursor-pointer"
+            onClick={() => onOpen({ type: 'createChannel', data: { server } })}
+          >
             Create Channel
             <PlusCircle className="w-4 h-4 ml-auto" />
           </DropdownMenuItem>

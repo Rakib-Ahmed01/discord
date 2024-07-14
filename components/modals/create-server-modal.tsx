@@ -30,7 +30,7 @@ import {
 import { Input } from '../ui/input';
 
 type Props = {
-  type: 'initial';
+  type?: 'initial';
 };
 
 export default function CreateServerModal({ type }: Props) {
@@ -49,9 +49,14 @@ export default function CreateServerModal({ type }: Props) {
     type === 'initial' || (isOpen && modalTypeAndData.type === 'createServer');
 
   const onSubmit = async (values: CreateServerType) => {
-    await axios.post('/api/servers', values);
-    onClose();
-    router.refresh();
+    try {
+      await axios.post('/api/servers', values);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      onClose();
+      router.refresh();
+    }
   };
 
   const handleClose = () => {

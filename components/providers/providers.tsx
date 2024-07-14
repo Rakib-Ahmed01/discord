@@ -1,3 +1,4 @@
+import { Toaster } from '@/components/ui/sonner';
 import ModalProvider from './modal-provider';
 import { ThemeProvider } from './theme-provider';
 
@@ -11,6 +12,7 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       storageKey="discord-theme"
     >
       <ModalProvider />
+      <Toaster richColors />
       {children}
     </ThemeProvider>
   );

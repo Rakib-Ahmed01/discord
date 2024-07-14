@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useModal } from '../../hooks/use-modal-store';
+import CreateChannelModal from '../modals/create-channel-modal';
 import CreateServerModal from '../modals/create-server-modal';
 import EditServerModal from '../modals/edit-server-modal';
 import InviteMemberModal from '../modals/invite-member-modal';
@@ -28,6 +29,8 @@ export default function ModalProvider() {
       return <EditServerModal />;
     case 'manageMembers':
       return <ManageMembersModal />;
+    case 'createChannel':
+      return <CreateChannelModal />;
     default:
       return null;
   }
