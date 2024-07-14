@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
       where: {
         id: serverId,
         members: {
-          every: {
+          some: {
             profileId: profile.id,
             role: {
               in: ['ADMIN', 'MODERATOR'],

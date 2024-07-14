@@ -6,6 +6,7 @@ import CreateChannelModal from '../modals/create-channel-modal';
 import CreateServerModal from '../modals/create-server-modal';
 import EditServerModal from '../modals/edit-server-modal';
 import InviteMemberModal from '../modals/invite-member-modal';
+import LeaveServerModal from '../modals/leave-server-modal';
 import ManageMembersModal from '../modals/manage-members-modal';
 
 export default function ModalProvider() {
@@ -31,6 +32,8 @@ export default function ModalProvider() {
       return <ManageMembersModal />;
     case 'createChannel':
       return <CreateChannelModal />;
+    case 'leaveServer':
+      return <LeaveServerModal />;
     default:
       return null;
   }
