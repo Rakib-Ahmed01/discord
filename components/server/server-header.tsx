@@ -45,19 +45,19 @@ export default function ServerHeader({ server, userRole }: Props) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
-        <button className="flex items-center h-12 w-full px-3 text-primary font-semibold border-neutral-200  dark:border-neutral-800 border-b-2 hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition">
+        <button className="flex items-center justify-between w-full p-3 font-semibold border-zinc-200 dark:border-zinc-800 border-b-2 hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition">
           {server.name}
-          <ChevronDownIcon className="h-5 w-5 ml-auto" />
+          <ChevronDownIcon className="size-5" />
         </button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent className="w-56 font-medium text-xs text-neutral-700 dark:text-neutral-400 space-y-[2px]">
+      <DropdownMenuContent className="w-56 font-medium text-xs text-zinc-700 dark:text-zinc-400 space-y-[2px]">
         {isModerator && (
           <DropdownMenuItem
             className="text-indigo-600 dark:text-indigo-500 px-3 py-2 cursor-pointer text-sm"
             onClick={onInvite}
           >
             Invite Member
-            <UserPlus className="w-4 h-4 ml-auto" />
+            <UserPlus className="size-4 ml-auto" />
           </DropdownMenuItem>
         )}
         {isAdmin && (
@@ -68,7 +68,7 @@ export default function ServerHeader({ server, userRole }: Props) {
             }}
           >
             Server Settings
-            <Settings className="w-4 h-4 ml-auto" />
+            <Settings className="size-4 ml-auto" />
           </DropdownMenuItem>
         )}
         {isAdmin && (
@@ -77,7 +77,7 @@ export default function ServerHeader({ server, userRole }: Props) {
             className="px-3 py-2 cursor-pointer"
           >
             Manage Members
-            <Users className="w-4 h-4 ml-auto" />
+            <Users className="size-4 ml-auto" />
           </DropdownMenuItem>
         )}
         {isModerator && (
@@ -86,7 +86,7 @@ export default function ServerHeader({ server, userRole }: Props) {
             onClick={() => onOpen({ type: 'createChannel', data: { server } })}
           >
             Create Channel
-            <PlusCircle className="w-4 h-4 ml-auto" />
+            <PlusCircle className="size-4 ml-auto" />
           </DropdownMenuItem>
         )}
         {isModerator && <DropdownMenuSeparator />}
@@ -101,7 +101,7 @@ export default function ServerHeader({ server, userRole }: Props) {
             }
           >
             Leave Server
-            <LogOut className="w-4 h-4 ml-auto" />
+            <LogOut className="size-4 ml-auto" />
           </DropdownMenuItem>
         )}
         {isAdmin && (
@@ -110,7 +110,7 @@ export default function ServerHeader({ server, userRole }: Props) {
             onClick={() => onOpen({ type: 'deleteServer', data: { server } })}
           >
             Delete Server
-            <Trash className="w-4 h-4 ml-auto" />
+            <Trash className="size-4 ml-auto" />
           </DropdownMenuItem>
         )}
       </DropdownMenuContent>

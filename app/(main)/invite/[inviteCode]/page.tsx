@@ -23,8 +23,6 @@ export default async function InviteCode({ params: { inviteCode } }: Props) {
     return redirect(`/servers/${userAlreadyInServer.id}`);
   }
 
-  console.log({ inviteCode });
-
   const server = await db.server.update({
     where: {
       inviteCode,

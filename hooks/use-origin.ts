@@ -5,11 +5,9 @@ export default function useOrigin() {
 
   useEffect(() => {
     setIsMounted(true);
+
+    return () => setIsMounted(false);
   }, []);
 
-  if (!isMounted) {
-    return '';
-  }
-
-  return window?.location?.origin ?? '';
+  return isMounted ? window?.location?.origin : '';
 }

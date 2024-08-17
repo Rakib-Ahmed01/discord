@@ -2,7 +2,7 @@ import { ServerWithChannelsAndMembersWithProfiles } from '@/types';
 import { Server } from '@prisma/client';
 import { create } from 'zustand';
 
-export type ModalmodalTypeAndData =
+export type ModalTypeAndData =
   | { type: null }
   | { type: 'createServer' }
   | {
@@ -27,9 +27,9 @@ export type ModalmodalTypeAndData =
   | { type: 'deleteServer'; data: { server: Server } };
 
 type ModalState = {
-  modalTypeAndData: ModalmodalTypeAndData;
+  modalTypeAndData: ModalTypeAndData;
   isOpen: boolean;
-  onOpen: (modalmodalTypeAndData: ModalmodalTypeAndData) => void;
+  onOpen: (modalmodalTypeAndData: ModalTypeAndData) => void;
   onClose: () => void;
 };
 

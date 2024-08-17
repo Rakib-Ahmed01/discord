@@ -8,7 +8,7 @@ export default async function MainLayout({
 }) {
   return (
     <div className="h-full">
-      <div className="hidden sm:flex flex-col h-full w-20 fixed inset-y-0">
+      <div className="hidden sm:flex flex-col w-20 fixed inset-y-0">
         <NavigationSidebar />
       </div>
       <main className="sm:pl-20 h-full">{children}</main>

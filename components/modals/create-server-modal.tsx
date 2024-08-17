@@ -77,8 +77,11 @@ export default function CreateServerModal({ type }: Props) {
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
-            <div className="space-y-4">
+          <form
+            onSubmit={form.handleSubmit(onSubmit)}
+            className="space-y-6 w-full"
+          >
+            <div className="space-y-4 w-full">
               <div className="flex justify-center">
                 <FormField
                   control={form.control}
@@ -86,11 +89,7 @@ export default function CreateServerModal({ type }: Props) {
                   render={({ field }) => (
                     <FormItem>
                       <FormControl>
-                        <FileUpload
-                          endpoint="serverImage"
-                          value={field.value}
-                          onChange={field.onChange}
-                        />
+                        <FileUpload endpoint="serverImage" {...field} />
                       </FormControl>
                       <FormMessage className="text-red-500 text-sm" />
                     </FormItem>

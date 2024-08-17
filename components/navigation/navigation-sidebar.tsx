@@ -33,7 +33,7 @@ export default async function NavigationSidebar() {
         <UserButton
           appearance={{
             elements: {
-              avatarBox: 'h-12 w-12',
+              avatarBox: 'size-11',
             },
           }}
         />
