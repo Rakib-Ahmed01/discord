@@ -21,7 +21,7 @@ import {
 } from '@/shared/schema-and-types';
 import { ServerWithChannelsAndMembersWithProfiles } from '@/types';
 import { zodResolver } from '@hookform/resolvers/zod';
-import { ChannelType } from '@prisma/client';
+import { Channel, ChannelType } from '@prisma/client';
 import { DialogDescription } from '@radix-ui/react-dialog';
 import axios from 'axios';
 import _ from 'lodash';
@@ -42,11 +42,7 @@ import {
 } from '../ui/form';
 import { Input } from '../ui/input';
 
-type Props = {
-  type?: 'initial';
-};
-
-export default function CreateChannelModal({ type }: Props) {
+export default function EditChannelModal() {
   const { isOpen, onClose, modalTypeAndData } = useModal();
   const router = useRouter();
   const form = useForm<{
@@ -60,17 +56,24 @@ export default function CreateChannelModal({ type }: Props) {
     resolver: zodResolver(createChannelSchema),
   });
 
+  let channel = {} as Channel;
+
+  if (modalTypeAndData.type === 'editChannel') {
+    channel = modalTypeAndData.data.channel;
+  }
+
   useEffect(() => {
-    if (modalTypeAndData.type === 'createChannel') {
-      form.setValue('type', modalTypeAndData.data.type);
+    if (modalTypeAndData.type === 'editChannel') {
+      form.setValue('type', modalTypeAndData.data.channel.type);
+      form.setValue('name', modalTypeAndData.data.channel.name);
     }
   }, [form, modalTypeAndData]);
 
   const isLoading = form.formState.isSubmitting;
-  const isModalOpen = isOpen && modalTypeAndData.type === 'createChannel';
+  const isModalOpen = isOpen && modalTypeAndData.type === 'editChannel';
   let server = {} as ServerWithChannelsAndMembersWithProfiles;
 
-  if (modalTypeAndData.type === 'createChannel') {
+  if (modalTypeAndData.type === 'editChannel') {
     server = modalTypeAndData.data.server;
   }
 
@@ -91,10 +94,11 @@ export default function CreateChannelModal({ type }: Props) {
         url: `/api/channels`,
         query: {
           serverId: server.id,
+          channelId: channel.id,
         },
       });
-      await axios.post(url, values);
-      toast.success('Channel created');
+      await axios.patch(url, values);
+      toast.success('Channel updated');
     } catch (error) {
       console.log(error);
     } finally {
@@ -113,10 +117,10 @@ export default function CreateChannelModal({ type }: Props) {
       <DialogContent className="overflow-hidden bg-white text-black p-5">
         <DialogHeader>
           <DialogTitle className="text-2xl text-center font-bold">
-            Create Channel
+            Edit Channel
           </DialogTitle>
           <DialogDescription className="text-zinc-500 text-center">
-            Create channel for your server
+            Edit channel of your server
           </DialogDescription>
         </DialogHeader>
         <Form {...form}>
@@ -184,7 +188,7 @@ export default function CreateChannelModal({ type }: Props) {
             </div>
             <DialogFooter>
               <Button type="submit" variant="primary" disabled={isLoading}>
-                Create
+                Update
               </Button>
             </DialogFooter>
           </form>

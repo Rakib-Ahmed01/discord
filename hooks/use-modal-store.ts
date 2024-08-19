@@ -1,5 +1,5 @@
 import { ServerWithChannelsAndMembersWithProfiles } from '@/types';
-import { Server } from '@prisma/client';
+import { Channel, ChannelType, Server } from '@prisma/client';
 import { create } from 'zustand';
 
 export type ModalTypeAndData =
@@ -21,10 +21,24 @@ export type ModalTypeAndData =
     }
   | {
       type: 'createChannel';
-      data: { server: ServerWithChannelsAndMembersWithProfiles };
+      data: {
+        server: ServerWithChannelsAndMembersWithProfiles;
+        type: ChannelType;
+      };
     }
   | { type: 'leaveServer'; data: { server: Server } }
-  | { type: 'deleteServer'; data: { server: Server } };
+  | { type: 'deleteServer'; data: { server: Server } }
+  | {
+      type: 'editChannel';
+      data: {
+        server: ServerWithChannelsAndMembersWithProfiles;
+        channel: Channel;
+      };
+    }
+  | {
+      type: 'deleteChannel';
+      data: { channel: Channel; server: Server };
+    };
 
 type ModalState = {
   modalTypeAndData: ModalTypeAndData;

@@ -83,7 +83,9 @@ export default function ServerHeader({ server, userRole }: Props) {
         {isModerator && (
           <DropdownMenuItem
             className="px-3 py-2 cursor-pointer"
-            onClick={() => onOpen({ type: 'createChannel', data: { server } })}
+            onClick={() =>
+              onOpen({ type: 'createChannel', data: { server, type: 'TEXT' } })
+            }
           >
             Create Channel
             <PlusCircle className="size-4 ml-auto" />
