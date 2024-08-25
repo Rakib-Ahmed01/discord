@@ -5,7 +5,7 @@ import { cn } from '@/lib/utils';
 import { ServerWithChannelsAndMembersWithProfiles } from '@/types';
 import { Channel, ChannelType, MemberRole } from '@prisma/client';
 import { Edit, Hash, LockIcon, Mic, Trash, Video } from 'lucide-react';
-import { useParams } from 'next/navigation';
+import { useParams, useRouter } from 'next/navigation';
 import ActionTooltip from '../action-tooltip';
 
 type Props = {
@@ -23,6 +23,7 @@ const iconMap = {
 export default function ServerChannels({ channel, role, server }: Props) {
   const { id, type, name } = channel || {};
   const params = useParams();
+  const router = useRouter();
   const { onOpen } = useModal();
 
   const Icon = iconMap[type];
@@ -40,11 +41,13 @@ export default function ServerChannels({ channel, role, server }: Props) {
 
   return (
     <button
-      onClick={() => {}}
+      onClick={() =>
+        router.push(`/servers/${server.id}/channels/${channel.id}`)
+      }
       className={cn(
         'group p-2 flex gap-2 items-center rounded-md w-full my-[6px] hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition',
         params?.channelId === id &&
-          'hover:bg-zinc-700/20 dark:hover:bg-zinc-700/40'
+          'text-primary bg-zinc-700/20 dark:bg-zinc-700/40'
       )}
     >
       <Icon className="flex-shrink-0 size-4 text-zinc-500 dark:text-zinc-400" />
@@ -62,13 +65,19 @@ export default function ServerChannels({ channel, role, server }: Props) {
           <ActionTooltip side="top" align="center" label="Edit Channel">
             <Edit
               className="size-4 hidden group-hover:block text-indigo-500 dark:text-indigo-400 hover:text-indigo-600 dark:hover:text-indigo-300"
-              onClick={onEditChannel}
+              onClick={(e) => {
+                e.stopPropagation();
+                onEditChannel();
+              }}
             />
           </ActionTooltip>
           <ActionTooltip side="top" align="center" label="Delete Channel">
             <Trash
               className="size-4 hidden group-hover:block text-rose-500 dark:text-rose-400 hover:text-rose-600 dark:hover:text-rose-300"
-              onClick={onDeleteChannel}
+              onClick={(e) => {
+                e.stopPropagation();
+                onDeleteChannel();
+              }}
             />
           </ActionTooltip>
         </div>

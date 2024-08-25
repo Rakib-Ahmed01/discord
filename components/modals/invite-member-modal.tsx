@@ -22,8 +22,6 @@ export default function InviteMemberModal() {
   const { isOpen, onClose, modalTypeAndData, onOpen } = useModal();
   const origin = useOrigin();
 
-  console.log(origin);
-
   const isModalOpen = isOpen && modalTypeAndData.type === 'inviteMember';
   let inviteCode = '';
   let serverId = '';

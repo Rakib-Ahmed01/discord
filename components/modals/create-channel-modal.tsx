@@ -127,7 +127,7 @@ export default function CreateChannelModal({ type }: Props) {
                 name="name"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-xs uppercase text-secondary/90 font-semibold">
+                    <FormLabel className="uppercase text-xs font-semibold text-zinc-500 dark:text-secondary/70">
                       Channel Name
                     </FormLabel>
                     <FormControl>
@@ -151,7 +151,7 @@ export default function CreateChannelModal({ type }: Props) {
                 name="type"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel className="text-xs uppercase text-secondary/90 font-semibold">
+                    <FormLabel className="uppercase text-xs font-semibold text-zinc-500 dark:text-secondary/70">
                       Channel Type
                     </FormLabel>
                     <Select

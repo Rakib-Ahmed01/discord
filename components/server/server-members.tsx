@@ -46,10 +46,13 @@ export default function ServerMembers({ member, role, server }: Props) {
   return (
     <button
       className={cn(
-        'flex items-center gap-2 group p-2 text-sm hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 w-full my-[6px] transition',
+        'flex items-center gap-2 group p-2 text-sm hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 w-full my-[6px] transition rounded-md',
         params?.memberId === memberId &&
-          'text-primary bg-zinc-700/20 dark:bg-zinc-700/400'
+          'text-primary bg-zinc-700/20 dark:bg-zinc-700/40'
       )}
+      onClick={() => {
+        router.push(`/servers/${serverId}/conversations/${memberId}`);
+      }}
     >
       <span>{icon}</span>
       <p

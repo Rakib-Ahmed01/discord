@@ -85,3 +85,22 @@ export const getServersByProfileId = cache(async (profileId: string) => {
     },
   });
 });
+
+export const getChannel = cache(async (id: string) => {
+  return await db.channel.findUnique({
+    where: {
+      id,
+    },
+  });
+});
+
+export const getMemberByProfileAndServerId = cache(
+  async (serverId: string, profileId: string) => {
+    return await db.member.findFirst({
+      where: {
+        profileId,
+        serverId,
+      },
+    });
+  }
+);

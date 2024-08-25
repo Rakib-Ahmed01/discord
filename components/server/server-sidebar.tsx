@@ -170,7 +170,11 @@ export default async function ServerSidebar({ serverId }: Props) {
             <ServerSection
               sectionType="members"
               server={server}
-              label="Manage Members"
+              label={
+                currentUserRole !== 'GUEST'
+                  ? 'Manage Members'
+                  : 'Server Members'
+              }
               role={currentUserRole}
             />
             {members.map((member) => (
