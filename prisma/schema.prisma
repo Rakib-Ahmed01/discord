@@ -48,6 +48,11 @@ model Member {
   server   Server @relation(fields: [serverId], references: [id], onDelete: Cascade)
   serverId String
 
+  messages                  Message[]
+  conversationsInitiated    Coversation[]   @relation("memberOne")
+  conversationsParticipated Coversation[]   @relation("memberTwo")
+  directMessages            DirectMessage[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 }
@@ -63,8 +68,67 @@ model Channel {
   profile   Profile @relation(fields: [profileId], references: [id], onDelete: Cascade)
   profileId String
 
+  messages Message[]
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Message {
+  id      String  @id @default(uuid())
+  content String  @db.Text
+  fileUrl String? @db.Text
+  deleted Boolean @default(false)
+
+  senderId String
+  sender   Member @relation(fields: [senderId], references: [id], onDelete: Cascade)
+
+  channelId String
+  channel   Channel @relation(fields: [channelId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([senderId])
+  @@index([channelId])
+}
+
+model Coversation {
+  id String @id @default(uuid())
+
+  memberOneId String
+  memberOne   Member @relation("memberOne", fields: [memberOneId], references: [id])
+
+  memberTwoId String
+  memberTwo   Member @relation("memberTwo", fields: [memberTwoId], references: [id])
+
+  messages DirectMessage[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([memberOneId, memberTwoId])
+  @@index([memberOneId])
+  @@index([memberTwoId])
+}
+
+model DirectMessage {
+  id      String  @id @default(uuid())
+  content String  @db.Text
+  fileUrl String? @db.Text
+  deleted Boolean @default(false)
+
+  conversationId String
+  conversation   Coversation @relation(fields: [conversationId], references: [id], onDelete: Cascade)
+
+  senderId String
+  sender   Member @relation(fields: [senderId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@index([conversationId])
+  @@index([senderId])
 }
 
 enum MemberRole {

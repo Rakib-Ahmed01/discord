@@ -101,6 +101,9 @@ export const getMemberByProfileAndServerId = cache(
         profileId,
         serverId,
       },
+      include: {
+        profile: true,
+      },
     });
   }
 );
