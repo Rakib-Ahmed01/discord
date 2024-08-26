@@ -107,3 +107,79 @@ export const getMemberByProfileAndServerId = cache(
     });
   }
 );
+
+export const getMember = cache(async (memberId: string) => {
+  return await db.member.findFirst({
+    where: {
+      id: memberId,
+    },
+    include: {
+      profile: true,
+    },
+  });
+});
+
+export const getMemberByServerId = cache(
+  async (serverId: string, memberId: string) => {
+    return await db.member.findFirst({
+      where: {
+        id: memberId,
+        serverId,
+      },
+      include: {
+        profile: true,
+      },
+    });
+  }
+);
+
+export const getConversation = cache(
+  async (memberOneId: string, memberTwoId: string) => {
+    return await db.coversation.findUnique({
+      where: {
+        memberOneId_memberTwoId: {
+          memberOneId,
+          memberTwoId,
+        },
+      },
+      include: {
+        memberOne: {
+          include: {
+            profile: true,
+          },
+        },
+        memberTwo: {
+          include: {
+            profile: true,
+          },
+        },
+      },
+    });
+  }
+);
+
+export const getConversationWithMessages = cache(
+  async (memberOneId: string, memberTwoId: string) => {
+    return await db.coversation.findUnique({
+      where: {
+        memberOneId_memberTwoId: {
+          memberOneId,
+          memberTwoId,
+        },
+      },
+      include: {
+        memberOne: {
+          include: {
+            profile: true,
+          },
+        },
+        memberTwo: {
+          include: {
+            profile: true,
+          },
+        },
+        messages: true,
+      },
+    });
+  }
+);

@@ -1,5 +1,5 @@
 import CreateServerModal from '@/components/modals/create-server-modal';
-import getOrCreateProfile from '@/lib/initial-profile';
+import getOrCreateProfile from '@/lib/get-or-create-profile';
 import { getServersByProfileId } from '@/lib/utils';
 import { redirect } from 'next/navigation';
 

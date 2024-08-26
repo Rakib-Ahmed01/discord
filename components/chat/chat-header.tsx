@@ -1,4 +1,5 @@
 import { Hash, User } from 'lucide-react';
+import Image from 'next/image';
 import NavigationSidebar from '../navigation/navigation-sidebar';
 import ServerSidebar from '../server/server-sidebar';
 import MobileMenu from './mobile-menu';
@@ -25,8 +26,14 @@ export default function ChatHeader({ name, serverId, type, imageUrl }: Props) {
         serverSiderbar={<ServerSidebar serverId={serverId} />}
       />
 
-      <span className="inline-flex items-center gap-[1px]">
-        <Icon className="size-4 text-zinc-500 dark:text-zinc-400" />
+      <span className="inline-flex items-center gap-1">
+        {imageUrl ? (
+          <div className="size-7 relative rounded-full overflow-hidden">
+            <Image alt={name} src={imageUrl} fill />
+          </div>
+        ) : (
+          <Icon className="size-4 text-zinc-500 dark:text-zinc-400" />
+        )}
         {name}
       </span>
     </div>

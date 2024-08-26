@@ -1,10 +1,10 @@
 'use client';
 
-import { useModal } from '@/hooks/use-modal-store';
 import { cn } from '@/lib/utils';
 import { ServerWithChannelsAndMembersWithProfiles } from '@/types';
 import { Member, MemberRole, Profile } from '@prisma/client';
 import { ShieldAlert, ShieldCheck, User } from 'lucide-react';
+import Image from 'next/image';
 import { useParams, useRouter } from 'next/navigation';
 
 type Props = {
@@ -32,16 +32,8 @@ export default function ServerMembers({ member, role, server }: Props) {
   } = member || { profile: {} };
   const router = useRouter();
   const params = useParams();
-  const { onOpen } = useModal();
 
   const icon = roleIconMap[memberRole];
-
-  const onEditMember = () => {
-    onOpen({
-      type: 'manageMembers',
-      data: { server },
-    });
-  };
 
   return (
     <button
@@ -54,7 +46,9 @@ export default function ServerMembers({ member, role, server }: Props) {
         router.push(`/servers/${serverId}/conversations/${memberId}`);
       }}
     >
-      <span>{icon}</span>
+      <div className="size-5 relative rounded-full overflow-hidden">
+        <Image alt={name} src={imageUrl} fill />
+      </div>
       <p
         className={cn(
           'line-clamp-1 text-zinc-500 dark:text-zinc-400 hover:group-hover:text-zinc-600 dark:group-hover:text-zinc-300 text-sm transition',
@@ -64,6 +58,7 @@ export default function ServerMembers({ member, role, server }: Props) {
       >
         {name}
       </p>
+      <span className="inline-block mt-1">{icon}</span>
     </button>
   );
 }
