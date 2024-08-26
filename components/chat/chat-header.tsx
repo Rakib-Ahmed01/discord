@@ -21,7 +21,7 @@ export default function ChatHeader({ name, serverId, type, imageUrl }: Props) {
   const Icon = iconMap[type];
 
   return (
-    <div className="text-md font-semibold p-3 flex items-center gap-2 border-zinc-200 dark:border-zinc-800 border-b-[1px] hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition ">
+    <div className="text-md font-semibold p-3 flex items-center gap-2 border-zinc-200 dark:border-zinc-800 border-b-[1px] hover:bg-zinc-700/10 dark:hover:bg-zinc-700/50 transition">
       <MobileMenu
         navigationSidebar={<NavigationSidebar />}
         serverSiderbar={<ServerSidebar serverId={serverId} />}

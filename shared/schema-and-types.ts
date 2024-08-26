@@ -30,3 +30,9 @@ export const createChannelSchema = z.object({
 });
 
 export type CreateChannelType = z.infer<typeof createChannelSchema>;
+
+export const MessageSchema = z.object({
+  content: z.string().min(1),
+});
+
+export type MessageSchemaType = z.infer<typeof MessageSchema>;
