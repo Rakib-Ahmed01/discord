@@ -4,10 +4,11 @@ import { useModal } from '@/hooks/use-modal-store';
 import { MessageSchema, MessageSchemaType } from '@/shared/schema-and-types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
-import { Plus, Smile } from 'lucide-react';
+import { Plus } from 'lucide-react';
 import queryString from 'query-string';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
+import EmojiPopover from '../emoji-popover';
 import { Form, FormField, FormItem } from '../ui/form';
 import { Input } from '../ui/input';
 
@@ -74,7 +75,11 @@ export default function ChatInput({ apiUrl, name, type, query }: Props) {
                   className="px-12 py-6 bg-zinc-200/90 dark:bg-zinc-700/75 border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600 dark:text-zinc-200"
                 />
                 <button type="button" className="absolute top-7 right-6">
-                  <Smile className="size-5 text-zinc-300/80 hover:text-zinc-200" />
+                  <EmojiPopover
+                    onChange={(emoji) => {
+                      form.setValue('content', field.value + emoji);
+                    }}
+                  />
                 </button>
               </div>
             </FormItem>

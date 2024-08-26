@@ -18,7 +18,10 @@ export default function SocketIndicator() {
   }
 
   return (
-    <Badge variant={'outline'} className="bg-emerald-600 border-none">
+    <Badge
+      variant={'outline'}
+      className="bg-emerald-600 border-none text-white"
+    >
       Live: Real-time updates
     </Badge>
   );
