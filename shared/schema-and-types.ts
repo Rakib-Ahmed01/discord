@@ -33,6 +33,14 @@ export type CreateChannelType = z.infer<typeof createChannelSchema>;
 
 export const MessageSchema = z.object({
   content: z.string().min(1),
+  fileUrl: z.string().optional(),
 });
 
 export type MessageSchemaType = z.infer<typeof MessageSchema>;
+
+export const MessageWithFileSchema = z.object({
+  content: z.string().optional(),
+  fileUrl: z.string(),
+});
+
+export type MessageWithFileSchemaType = z.infer<typeof MessageWithFileSchema>;

@@ -38,6 +38,15 @@ export type ModalTypeAndData =
   | {
       type: 'deleteChannel';
       data: { channel: Channel; server: Server };
+    }
+  | {
+      type: 'sendFile';
+      data: {
+        type: 'channel' | 'conversation';
+        name: string;
+        apiUrl: string;
+        query: Record<string, any>;
+      };
     };
 
 type ModalState = {

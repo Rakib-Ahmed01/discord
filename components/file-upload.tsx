@@ -1,7 +1,7 @@
 'use client';
 
 import { UploadDropzone } from '@/lib/uploadthing';
-import { X } from 'lucide-react';
+import { FileIcon, X } from 'lucide-react';
 import Image from 'next/image';
 
 interface Props {
@@ -11,12 +11,36 @@ interface Props {
 }
 
 export default function FileUpload({ endpoint, onChange, value }: Props) {
-  const fileType = value.split('.')[1];
+  const fileType = value.split('.')[2];
+
+  console.log({ value, fileType });
 
   if (value && fileType !== 'pdf') {
     return (
       <div className="relative w-20 h-20">
         <Image fill src={value} alt="Upload" className="rounded-full" />
+        <button
+          onClick={() => onChange('')}
+          className="absolute top-0 right-0 bg-rose-600 shadow-sm rounded-full p-[2px] text-white"
+        >
+          <X className="h-4 w-4" />
+        </button>
+      </div>
+    );
+  }
+
+  if (endpoint === 'messageFile' && value && fileType === 'pdf') {
+    return (
+      <div className="relative flex items-center p-2 mtp-2 rounded-md bg-background/10">
+        <FileIcon className="size-10 fill-indigo-200 stroke-indigo-400" />
+        <a
+          href={value}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="ml-2 text-sm text-indigo-500 dark:text-indigo-400 hover:underline"
+        >
+          {value}
+        </a>
         <button
           onClick={() => onChange('')}
           className="absolute top-0 right-0 bg-rose-600 shadow-sm rounded-full p-[2px] text-white"

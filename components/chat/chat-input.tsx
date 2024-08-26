@@ -1,5 +1,6 @@
 'use client';
 
+import { useModal } from '@/hooks/use-modal-store';
 import { MessageSchema, MessageSchemaType } from '@/shared/schema-and-types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
@@ -24,10 +25,12 @@ export default function ChatInput({ apiUrl, name, type, query }: Props) {
     },
     resolver: zodResolver(MessageSchema),
   });
+  const { onOpen } = useModal();
 
   const isLoading = form.formState.isSubmitting;
 
   const onSubmit = async (values: MessageSchemaType) => {
+    console.log(values);
     try {
       const url = queryString.stringifyUrl({
         url: apiUrl,
@@ -53,6 +56,12 @@ export default function ChatInput({ apiUrl, name, type, query }: Props) {
                 <button
                   type="button"
                   className="absolute top-7 left-6 bg-zinc-500 dark:bg-zinc-400 hover:bg-zinc-600 dark:hover:bg-zinc-300 transition rounded-full p-[1px] flex justify-center items-center"
+                  onClick={() => {
+                    onOpen({
+                      type: 'sendFile',
+                      data: { type, name, apiUrl, query },
+                    });
+                  }}
                 >
                   <Plus className="size-4 text-white dark:text-darkish" />
                 </button>

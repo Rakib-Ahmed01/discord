@@ -6,7 +6,8 @@ import { z } from 'zod';
 
 const bodyAndQuerySchema = z.object({
   body: z.object({
-    content: z.string().min(1),
+    content: z.string().optional(),
+    fileUrl: z.string().optional(),
   }),
   query: z.object({
     channelId: z.string().min(1),
@@ -36,9 +37,13 @@ export default async function handler(
     }
 
     const {
-      body: { content },
+      body: { content, fileUrl },
       query: { serverId, channelId },
     } = result.data;
+
+    if (!fileUrl && !content) {
+      return res.status(400).json({ error: 'File or Message is required' });
+    }
 
     const member = await db.member.findFirst({
       where: {
@@ -53,9 +58,10 @@ export default async function handler(
 
     const message = await db.message.create({
       data: {
-        content,
+        content: content || '',
         channelId,
         senderId: member.id,
+        fileUrl: fileUrl || null,
       },
     });
 

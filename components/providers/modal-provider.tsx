@@ -11,6 +11,7 @@ import EditServerModal from '../modals/edit-server-modal';
 import InviteMemberModal from '../modals/invite-member-modal';
 import LeaveServerModal from '../modals/leave-server-modal';
 import ManageMembersModal from '../modals/manage-members-modal';
+import SendFileModal from '../modals/send-file-modal';
 
 export default function ModalProvider() {
   const [isMounted, setIsMounted] = useState(false);
@@ -43,6 +44,8 @@ export default function ModalProvider() {
       return <EditChannelModal />;
     case 'deleteChannel':
       return <DeleteChannelModal />;
+    case 'sendFile':
+      return <SendFileModal />;
     default:
       return null;
   }
