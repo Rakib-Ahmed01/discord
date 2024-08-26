@@ -1,5 +1,6 @@
 import { Toaster } from '@/components/ui/sonner';
 import ModalProvider from './modal-provider';
+import SocketProvider from './socket-provider';
 import { ThemeProvider } from './theme-provider';
 
 export default function Providers({ children }: { children: React.ReactNode }) {
@@ -11,9 +12,11 @@ export default function Providers({ children }: { children: React.ReactNode }) {
       disableTransitionOnChange
       storageKey="discord-theme"
     >
-      <ModalProvider />
-      <Toaster richColors />
-      {children}
+      <SocketProvider>
+        <ModalProvider />
+        <Toaster richColors />
+        {children}
+      </SocketProvider>
     </ThemeProvider>
   );
 }
