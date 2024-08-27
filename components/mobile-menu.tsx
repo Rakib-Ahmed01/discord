@@ -25,10 +25,13 @@ export default function MobileMenu({
       <SheetTrigger>
         <Menu className="size-5" />
       </SheetTrigger>
-      <SheetContent side={'left'} className="pl-0 w-[350px]">
+      <SheetContent
+        side={'left'}
+        className="pl-0 w-[350px] bg-transparent border-none"
+      >
         <div className="flex">
           <div className="fixed inset-y-0 z-10">{navigationSidebar}</div>
-          <div className="pl-20 fixed inset-y-0 w-[310px]">
+          <div className="pl-[72px] fixed inset-y-0 w-[310px]">
             {serverSiderbar}
           </div>
         </div>

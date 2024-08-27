@@ -58,7 +58,7 @@ export default function ServerMembers({ member, role, server }: Props) {
       >
         {name}
       </p>
-      <span className="inline-block mt-1">{icon}</span>
+      <span className="inline-block">{icon}</span>
     </button>
   );
 }

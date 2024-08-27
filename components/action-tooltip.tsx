@@ -8,12 +8,17 @@ import {
 
 type Props = {
   children: React.ReactNode;
-  align: 'center' | 'end' | 'start';
-  side: 'top' | 'right' | 'bottom' | 'left';
+  align?: 'center' | 'end' | 'start';
+  side?: 'top' | 'right' | 'bottom' | 'left';
   label: string;
 };
 
-export default function ActionTooltip({ children, align, side, label }: Props) {
+export default function ActionTooltip({
+  children,
+  align = 'center',
+  side = 'top',
+  label,
+}: Props) {
   return (
     <TooltipProvider>
       <Tooltip>

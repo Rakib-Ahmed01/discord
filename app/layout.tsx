@@ -5,6 +5,7 @@ import { Metadata } from 'next';
 import { Inter } from 'next/font/google';
 import { extractRouterConfig } from 'uploadthing/server';
 
+import QueryProvider from '@/components/providers/query-client-provider';
 import { ourFileRouter } from './api/uploadthing/core';
 import './globals.css';
 
@@ -21,22 +22,24 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <ClerkProvider>
-      <html lang="en" className={inter.className} suppressHydrationWarning>
-        <head />
-        <body className="bg-white dark:bg-grayish">
-          <NextSSRPlugin
-            /**
-             * The `extractRouterConfig` will extract **only** the route configs
-             * from the router to prevent additional information from being
-             * leaked to the client. The data passed to the client is the same
-             * as if you were to fetch `/api/uploadthing` directly.
-             */
-            routerConfig={extractRouterConfig(ourFileRouter)}
-          />
-          <Providers>{children}</Providers>
-        </body>
-      </html>
-    </ClerkProvider>
+    <QueryProvider>
+      <ClerkProvider>
+        <html lang="en" className={inter.className} suppressHydrationWarning>
+          <head />
+          <body className="bg-white dark:bg-grayish">
+            <NextSSRPlugin
+              /**
+               * The `extractRouterConfig` will extract **only** the route configs
+               * from the router to prevent additional information from being
+               * leaked to the client. The data passed to the client is the same
+               * as if you were to fetch `/api/uploadthing` directly.
+               */
+              routerConfig={extractRouterConfig(ourFileRouter)}
+            />
+            <Providers>{children}</Providers>
+          </body>
+        </html>
+      </ClerkProvider>
+    </QueryProvider>
   );
 }

@@ -19,7 +19,7 @@ export default function EmojiPopover({ onChange }: Props) {
   const theme = useTheme();
   return (
     <Popover>
-      <PopoverTrigger>
+      <PopoverTrigger className="absolute top-7 right-6">
         <Smile className="size-5 text-zinc-500 dark:text-zinc-400 hover:text-zinc-600  dark:hover:text-zinc-300 transition" />
       </PopoverTrigger>
       <PopoverContent

@@ -1,9 +1,9 @@
 import { Hash, User } from 'lucide-react';
 import Image from 'next/image';
+import MobileMenu from '../mobile-menu';
 import NavigationSidebar from '../navigation/navigation-sidebar';
 import ServerSidebar from '../server/server-sidebar';
 import SocketIndicator from '../socket-indicator';
-import MobileMenu from './mobile-menu';
 
 type Props = {
   serverId: string;

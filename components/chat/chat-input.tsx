@@ -5,6 +5,7 @@ import { MessageSchema, MessageSchemaType } from '@/shared/schema-and-types';
 import { zodResolver } from '@hookform/resolvers/zod';
 import axios from 'axios';
 import { Plus } from 'lucide-react';
+import { useRouter } from 'next/navigation';
 import queryString from 'query-string';
 import { useForm } from 'react-hook-form';
 import { toast } from 'sonner';
@@ -14,7 +15,7 @@ import { Input } from '../ui/input';
 
 type Props = {
   apiUrl: string;
-  query: Record<string, any>;
+  query: Record<string, string>;
   name: string;
   type: 'conversation' | 'channel';
 };
@@ -27,6 +28,7 @@ export default function ChatInput({ apiUrl, name, type, query }: Props) {
     resolver: zodResolver(MessageSchema),
   });
   const { onOpen } = useModal();
+  const router = useRouter();
 
   const isLoading = form.formState.isSubmitting;
 
@@ -40,6 +42,7 @@ export default function ChatInput({ apiUrl, name, type, query }: Props) {
       await axios.post(url, { content: values.content });
       toast.success('Message sent successfully', { position: 'top-right' });
       form.reset();
+      router.refresh();
     } catch (error) {
       console.log(error);
     }
@@ -74,13 +77,11 @@ export default function ChatInput({ apiUrl, name, type, query }: Props) {
                   {...field}
                   className="px-12 py-6 bg-zinc-200/90 dark:bg-zinc-700/75 border-none border-0 focus-visible:ring-0 focus-visible:ring-offset-0 text-zinc-600 dark:text-zinc-200"
                 />
-                <button type="button" className="absolute top-7 right-6">
-                  <EmojiPopover
-                    onChange={(emoji) => {
-                      form.setValue('content', field.value + emoji);
-                    }}
-                  />
-                </button>
+                <EmojiPopover
+                  onChange={(emoji) => {
+                    form.setValue('content', field.value + emoji);
+                  }}
+                />
               </div>
             </FormItem>
           )}

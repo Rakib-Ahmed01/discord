@@ -195,5 +195,6 @@ export async function DELETE(request: NextRequest) {
     return new NextResponse('Channel updated', { status: 200 });
   } catch (error) {
     console.log('CHANNELS_POST', error);
+    return new NextResponse('Internal server error', { status: 500 });
   }
 }
